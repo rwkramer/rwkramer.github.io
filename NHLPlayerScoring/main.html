@@ -13994,7 +13994,7 @@ a.anchor-link {
 <p>1) The individual cannot bet against a player to score.<br>
 2) The individual can bet on the player scoring first during the game, at anytime during the game or being the last goal-scorer.<br>
 3) Lines for the individual players are widely available through many betting houses, but are not able to be manipulated by the individual placing the bet.</p>
-<p>Here we will provide a method for investigating whether or not we should place a bet on a player scoring over the course of the night. In an effort to leverage a statistical hypothesis test to create some degree of rigor around our evaluation, we will use two common statistical tests: A runs test and a binomial tail test. These two tests should allow us to identify opportunities to wager on an individual player that is fundamentally mispriced by the betting house.</p>
+<p>Here we will provide a method for investigating whether or not we should place a bet on a player scoring over the course of the night. In an effort to leverage a statistical hypothesis test to create some degree of rigor around our evaluation, we will use two common statistical tests: A runs test and a binomial tail test. These two tests should help allow us to identify opportunities to wager on an individual player that is fundamentally mispriced by the betting house.</p>
 
 </div>
 </div>
@@ -14018,7 +14018,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Import all necessary libraries</span>
@@ -14048,7 +14048,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ML_game_data</span> <span class="o">=</span> <span class="n">get_game_by_game_splits</span><span class="p">(</span><span class="n">team_id</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">season</span> <span class="o">=</span> <span class="mi">20222023</span><span class="p">)</span>
@@ -14062,7 +14062,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ML_game_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -14081,7 +14081,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
 
 
 
@@ -14227,19 +14227,19 @@ H<sub>a</sub>: The sequence was not produced in a random manner</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">runs_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="mf">.05</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;df: input of game by game data for a particular team</span>
 <span class="sd">      pval: the level of signficance used in the runs test&#39;&#39;&#39;</span>
-    <span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;player_name&#39;</span><span class="p">,</span><span class="s1">&#39;result&#39;</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">])</span>
+    <span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;player_name&#39;</span><span class="p">,</span><span class="s1">&#39;result&#39;</span><span class="p">,</span><span class="s1">&#39;pval&#39;</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;player_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
         <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;player_name&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">x</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;player_name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">][</span><span class="s1">&#39;goals&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">runstest_1samp</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;player_name&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;goals&#39;</span><span class="p">],</span> <span class="n">cutoff</span> <span class="o">=</span><span class="mf">.5</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">pval</span><span class="p">:</span>
-                <span class="n">results_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">results_df</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;random&#39;</span><span class="p">,</span><span class="n">runstest_1samp</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;player_name&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;goals&#39;</span><span class="p">])]</span>
+                <span class="n">results_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">results_df</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;random&#39;</span><span class="p">,</span><span class="n">runstest_1samp</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;player_name&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;goals&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">]]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">results_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">results_df</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;not random&#39;</span><span class="p">,</span><span class="n">runstest_1samp</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;player_name&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;goals&#39;</span><span class="p">])]</span>
+                <span class="n">results_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">results_df</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;not random&#39;</span><span class="p">,</span><span class="n">runstest_1samp</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;player_name&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;goals&#39;</span><span class="p">])[</span><span class="mi">1</span><span class="p">]]</span>
     <span class="k">return</span> <span class="n">results_df</span>
 </pre></div>
 
@@ -14251,7 +14251,7 @@ H<sub>a</sub>: The sequence was not produced in a random manner</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ML_runs</span> <span class="o">=</span> <span class="n">runs_test</span><span class="p">(</span><span class="n">ML_game_data</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="mf">.05</span><span class="p">)</span>
@@ -14265,7 +14265,7 @@ H<sub>a</sub>: The sequence was not produced in a random manner</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ML_runs</span>
@@ -14284,7 +14284,7 @@ H<sub>a</sub>: The sequence was not produced in a random manner</p>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[20]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[18]:</div>
 
 
 
@@ -14309,7 +14309,7 @@ H<sub>a</sub>: The sequence was not produced in a random manner</p>
       <th></th>
       <th>player_name</th>
       <th>result</th>
-      <th>output</th>
+      <th>pval</th>
     </tr>
   </thead>
   <tbody>
@@ -14317,133 +14317,133 @@ H<sub>a</sub>: The sequence was not produced in a random manner</p>
       <th>0</th>
       <td>Ryan O'Reilly</td>
       <td>random</td>
-      <td>(0.20125558808020783, 0.8404987275744973)</td>
+      <td>0.840499</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Nicholas Robertson</td>
       <td>random</td>
-      <td>(-1.0786387432600124, 0.28074880294815496)</td>
+      <td>0.280749</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Mark Giordano</td>
       <td>random</td>
-      <td>(-1.7457482376411866, 0.08085470903452247)</td>
+      <td>0.077447</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Luke Schenn</td>
       <td>random</td>
-      <td>(0.4579714267455514, 0.6469729695655565)</td>
+      <td>0.646973</td>
     </tr>
     <tr>
       <th>4</th>
       <td>TJ Brodie</td>
       <td>random</td>
-      <td>(1.3629816191017454, 0.17288830360241458)</td>
+      <td>0.171042</td>
     </tr>
     <tr>
       <th>5</th>
       <td>John Tavares</td>
       <td>random</td>
-      <td>(1.0003993751113611, 0.3171172722872576)</td>
+      <td>0.353872</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Calle Jarnkrok</td>
       <td>random</td>
-      <td>(0.21840934275257082, 0.8271101867870945)</td>
+      <td>0.600383</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Justin Holl</td>
       <td>random</td>
-      <td>(0.29482132950548273, 0.7681303716781205)</td>
+      <td>0.769943</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Morgan Rielly</td>
       <td>random</td>
-      <td>(0.33555441115125795, 0.7372069071235019)</td>
+      <td>0.362666</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Jake McCabe</td>
       <td>random</td>
-      <td>(0.304923282535863, 0.760424582773427)</td>
+      <td>0.762423</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Erik Gustafsson</td>
       <td>random</td>
-      <td>(-1.129607215389132, 0.25864176929622273)</td>
+      <td>0.251117</td>
     </tr>
     <tr>
       <th>11</th>
       <td>Alexander Kerfoot</td>
       <td>random</td>
-      <td>(-0.704941058546361, 0.48084691726047746)</td>
+      <td>0.470335</td>
     </tr>
     <tr>
       <th>12</th>
       <td>William Nylander</td>
       <td>random</td>
-      <td>(-0.2188426359622094, 0.8267726330780205)</td>
+      <td>0.938139</td>
     </tr>
     <tr>
       <th>13</th>
       <td>Sam Lafferty</td>
       <td>random</td>
-      <td>(-0.591485783125695, 0.5541949781152535)</td>
+      <td>0.535309</td>
     </tr>
     <tr>
       <th>14</th>
       <td>Michael Bunting</td>
       <td>random</td>
-      <td>(-0.42198582191621675, 0.673035366212144)</td>
+      <td>0.643658</td>
     </tr>
     <tr>
       <th>15</th>
       <td>Mitchell Marner</td>
       <td>random</td>
-      <td>(0.5555259990661705, 0.5785349319457977)</td>
+      <td>0.624248</td>
     </tr>
     <tr>
       <th>16</th>
       <td>Noel Acciari</td>
       <td>random</td>
-      <td>(0.5248334533078309, 0.599698973684474)</td>
+      <td>0.613849</td>
     </tr>
     <tr>
       <th>17</th>
       <td>Auston Matthews</td>
       <td>random</td>
-      <td>(-0.11158674612814402, 0.9111510814415889)</td>
+      <td>0.972176</td>
     </tr>
     <tr>
       <th>18</th>
       <td>Zach Aston-Reese</td>
       <td>random</td>
-      <td>(0.7326580794867144, 0.46376699793916276)</td>
+      <td>0.468014</td>
     </tr>
     <tr>
       <th>19</th>
       <td>Conor Timmins</td>
       <td>random</td>
-      <td>(1.2780933953638636, 0.20121649743432912)</td>
+      <td>0.201216</td>
     </tr>
     <tr>
       <th>20</th>
       <td>Timothy Liljegren</td>
       <td>random</td>
-      <td>(0.633007371545006, 0.5267288291739943)</td>
+      <td>0.531177</td>
     </tr>
     <tr>
       <th>21</th>
       <td>David Kampf</td>
       <td>random</td>
-      <td>(0.9972084139608023, 0.31866335771977816)</td>
+      <td>0.323140</td>
     </tr>
   </tbody>
 </table>
@@ -14459,14 +14459,14 @@ H<sub>a</sub>: The sequence was not produced in a random manner</p>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Runs-Test-Conclusions:">Runs Test Conclusions:<a class="anchor-link" href="#Runs-Test-Conclusions:">&#182;</a></h1><p>Note that the second value in the output column represents the p-value of the test.</p>
-<p>We can see from the above output and annotation that none of the Maple Leafs players goal-scoring was "not random" according to our runs test. We never reject the null hypothesis. While perhaps dissapointing that we did not identify a player who was streaky or had some pattern within his goal scoring - this is good insight for subsequent analysis and our binomial testing of the players performance.</p>
+<h1 id="Runs-Test-Conclusions:">Runs Test Conclusions:<a class="anchor-link" href="#Runs-Test-Conclusions:">&#182;</a></h1><p>We can see from the above output and annotation that none of the Maple Leafs players goal-scoring was "not random" according to our runs test. We always fail to reject the null hypothesis. While perhaps dissapointing that we did not identify a player who was streaky or had some pattern within his goal scoring - this is good insight for subsequent analysis and our binomial testing of the players performance.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Binomial-Test">Binomial Test<a class="anchor-link" href="#Binomial-Test">&#182;</a></h1><p>We now introduce a binomial test. We can assume that each player's ability to score on a game-to-game basis follows a Bernoulli trial where:</p>
+<h1 id="Binomial-Test">Binomial Test<a class="anchor-link" href="#Binomial-Test">&#182;</a></h1><p>More info on binomial tests can be found at <a href="https://www.statisticshowto.com/probability-and-statistics/hypothesis-testing/how-to-decide-if-a-hypothesis-test-is-a-left-tailed-test-or-a-right-tailed-test/">https://www.statisticshowto.com/probability-and-statistics/hypothesis-testing/how-to-decide-if-a-hypothesis-test-is-a-left-tailed-test-or-a-right-tailed-test/</a></p>
+<p>We now introduce a binomial test. We can assume that each player's ability to score on a game-to-game basis follows a Bernoulli trial where:</p>
 <p>P(actual_scoring_odds) represents the likelihood of a player scoring during the game.</p>
 <p>for one event. This will generate a Binomial Distribution of the players ability to score on a nightly basis.</p>
 <p>Additionally, we can look online and find what the betting odds are for an individual player to score. We collected this data from DraftKings before puckdrop on 3/13.</p>
@@ -14490,7 +14490,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &gt; P(implied_scoring_odds)</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">binomtest_modified</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">payout</span> <span class="o">=</span> <span class="o">-</span><span class="mi">145</span><span class="p">,</span> <span class="n">greater_or_less</span> <span class="o">=</span> <span class="s1">&#39;greater&#39;</span><span class="p">):</span>
@@ -14517,7 +14517,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &gt; P(implied_scoring_odds)</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">odds</span> <span class="o">=</span> <span class="p">[</span>
@@ -14552,7 +14552,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &gt; P(implied_scoring_odds)</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;player&#39;</span><span class="p">,</span><span class="s1">&#39;implied_odds&#39;</span><span class="p">,</span><span class="s1">&#39;actual_odds&#39;</span><span class="p">,</span><span class="s1">&#39;result_of_test&#39;</span><span class="p">])</span>
@@ -14566,7 +14566,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &gt; P(implied_scoring_odds)</p>
         <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;player&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">player</span>
         <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;implied_odds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">implied_odds</span>
         <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;actual_odds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">actual_prob</span>
-        <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;result_of_test&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_vals</span><span class="o">.</span><span class="n">pvalue</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;pval&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_vals</span><span class="o">.</span><span class="n">pvalue</span>
         <span class="n">index</span> <span class="o">+=</span><span class="mi">1</span>
 <span class="n">results</span>
 </pre></div>
@@ -14584,7 +14584,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &gt; P(implied_scoring_odds)</p>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[15]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[21]:</div>
 
 
 
@@ -14611,6 +14611,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &gt; P(implied_scoring_odds)</p>
       <th>implied_odds</th>
       <th>actual_odds</th>
       <th>result_of_test</th>
+      <th>pval</th>
     </tr>
   </thead>
   <tbody>
@@ -14618,219 +14619,159 @@ H<sub>a</sub>: P(actual_scoring_odds) &gt; P(implied_scoring_odds)</p>
       <th>0</th>
       <td>Mark Giordano</td>
       <td>0.117647</td>
-      <td>0.060606</td>
-      <td>0.959576</td>
+      <td>0.059701</td>
+      <td>NaN</td>
+      <td>0.962875</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Wayne Simmonds</td>
       <td>0.190476</td>
       <td>0.0</td>
-      <td>1.0</td>
+      <td>NaN</td>
+      <td>1.000000</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Luke Schenn</td>
       <td>0.1</td>
       <td>0.052632</td>
+      <td>NaN</td>
       <td>0.933353</td>
     </tr>
     <tr>
       <th>3</th>
       <td>TJ Brodie</td>
       <td>0.142857</td>
-      <td>0.045455</td>
-      <td>0.990556</td>
+      <td>0.044444</td>
+      <td>NaN</td>
+      <td>0.991743</td>
     </tr>
     <tr>
       <th>4</th>
       <td>John Tavares</td>
       <td>0.444444</td>
-      <td>0.369231</td>
-      <td>0.91156</td>
+      <td>0.363636</td>
+      <td>NaN</td>
+      <td>0.926777</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Calle Jarnkrok</td>
       <td>0.273973</td>
-      <td>0.254237</td>
-      <td>0.680163</td>
+      <td>0.25</td>
+      <td>NaN</td>
+      <td>0.707221</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Justin Holl</td>
       <td>0.076923</td>
-      <td>0.030769</td>
-      <td>0.9647</td>
+      <td>0.030303</td>
+      <td>NaN</td>
+      <td>0.966992</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Morgan Rielly</td>
       <td>0.190476</td>
-      <td>0.039216</td>
-      <td>0.999729</td>
+      <td>0.057692</td>
+      <td>NaN</td>
+      <td>0.998535</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Jake McCabe</td>
       <td>0.117647</td>
-      <td>0.032787</td>
-      <td>0.995586</td>
+      <td>0.032258</td>
+      <td>NaN</td>
+      <td>0.996049</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Erik Gustafsson</td>
       <td>0.208333</td>
-      <td>0.076923</td>
-      <td>0.998931</td>
+      <td>0.075758</td>
+      <td>NaN</td>
+      <td>0.999103</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Alexander Kerfoot</td>
       <td>0.25974</td>
-      <td>0.090909</td>
-      <td>0.999855</td>
+      <td>0.089552</td>
+      <td>NaN</td>
+      <td>0.999884</td>
     </tr>
     <tr>
       <th>11</th>
       <td>William Nylander</td>
       <td>0.5</td>
-      <td>0.469697</td>
-      <td>0.730709</td>
+      <td>0.462687</td>
+      <td>NaN</td>
+      <td>0.768091</td>
     </tr>
     <tr>
       <th>12</th>
       <td>Sam Lafferty</td>
       <td>0.273973</td>
-      <td>0.157895</td>
-      <td>0.986779</td>
+      <td>0.155172</td>
+      <td>NaN</td>
+      <td>0.988988</td>
     </tr>
     <tr>
       <th>13</th>
       <td>Michael Bunting</td>
       <td>0.350877</td>
-      <td>0.242424</td>
-      <td>0.978529</td>
+      <td>0.238806</td>
+      <td>NaN</td>
+      <td>0.982330</td>
     </tr>
     <tr>
       <th>14</th>
       <td>Mitchell Marner</td>
       <td>0.392157</td>
-      <td>0.348485</td>
-      <td>0.802326</td>
+      <td>0.343284</td>
+      <td>NaN</td>
+      <td>0.827267</td>
     </tr>
     <tr>
       <th>15</th>
       <td>Noel Acciari</td>
       <td>0.227273</td>
-      <td>0.153846</td>
-      <td>0.946275</td>
+      <td>0.151515</td>
+      <td>NaN</td>
+      <td>0.952579</td>
     </tr>
     <tr>
       <th>16</th>
       <td>Zach Aston-Reese</td>
       <td>0.153846</td>
-      <td>0.081967</td>
-      <td>0.967752</td>
+      <td>0.080645</td>
+      <td>NaN</td>
+      <td>0.971045</td>
     </tr>
     <tr>
       <th>17</th>
       <td>Timothy Liljegren</td>
       <td>0.153846</td>
-      <td>0.075472</td>
-      <td>0.971864</td>
+      <td>0.074074</td>
+      <td>NaN</td>
+      <td>0.974958</td>
     </tr>
     <tr>
       <th>18</th>
       <td>David Kampf</td>
       <td>0.190476</td>
-      <td>0.106061</td>
-      <td>0.978239</td>
+      <td>0.104478</td>
+      <td>NaN</td>
+      <td>0.980816</td>
     </tr>
   </tbody>
 </table>
 </div>
 </div>
 
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[65]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ML_odds</span><span class="p">[</span><span class="n">ML_odds</span><span class="p">[</span><span class="s1">&#39;player&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Jake Muzzin&#39;</span><span class="p">][</span><span class="s1">&#39;odds&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">KeyError</span>                                  Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\indexes\base.py</span> in <span class="ansi-cyan-fg">get_loc</span><span class="ansi-blue-intense-fg ansi-bold">(self, key, method, tolerance)</span>
-<span class="ansi-green-fg">   3360</span>             <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 3361</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span><span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_engine<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_loc<span class="ansi-yellow-intense-fg ansi-bold">(</span>casted_key<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   3362</span>             <span class="ansi-green-intense-fg ansi-bold">except</span> KeyError <span class="ansi-green-intense-fg ansi-bold">as</span> err<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\_libs\index.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.index.IndexEngine.get_loc</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-
-<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\_libs\index.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.index.IndexEngine.get_loc</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-
-<span class="ansi-green-intense-fg ansi-bold">pandas\_libs\hashtable_class_helper.pxi</span> in <span class="ansi-cyan-fg">pandas._libs.hashtable.Int64HashTable.get_item</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-
-<span class="ansi-green-intense-fg ansi-bold">pandas\_libs\hashtable_class_helper.pxi</span> in <span class="ansi-cyan-fg">pandas._libs.hashtable.Int64HashTable.get_item</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-
-<span class="ansi-red-intense-fg ansi-bold">KeyError</span>: 0
-
-The above exception was the direct cause of the following exception:
-
-<span class="ansi-red-intense-fg ansi-bold">KeyError</span>                                  Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Temp/ipykernel_7472/2508108881.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>ML_odds<span class="ansi-yellow-intense-fg ansi-bold">[</span>ML_odds<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#39;player&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">==</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;Jake Muzzin&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#39;odds&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
-
-<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\series.py</span> in <span class="ansi-cyan-fg">__getitem__</span><span class="ansi-blue-intense-fg ansi-bold">(self, key)</span>
-<span class="ansi-green-fg">    940</span> 
-<span class="ansi-green-fg">    941</span>         <span class="ansi-green-intense-fg ansi-bold">elif</span> key_is_scalar<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 942</span><span class="ansi-yellow-intense-fg ansi-bold">             </span><span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_get_value<span class="ansi-yellow-intense-fg ansi-bold">(</span>key<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    943</span> 
-<span class="ansi-green-fg">    944</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> is_hashable<span class="ansi-yellow-intense-fg ansi-bold">(</span>key<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\series.py</span> in <span class="ansi-cyan-fg">_get_value</span><span class="ansi-blue-intense-fg ansi-bold">(self, label, takeable)</span>
-<span class="ansi-green-fg">   1049</span> 
-<span class="ansi-green-fg">   1050</span>         <span class="ansi-red-intense-fg ansi-bold"># Similar to Index.get_value, but we do not fall back to positional</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 1051</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>loc <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>index<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_loc<span class="ansi-yellow-intense-fg ansi-bold">(</span>label<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1052</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>index<span class="ansi-yellow-intense-fg ansi-bold">.</span>_get_values_for_loc<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> loc<span class="ansi-yellow-intense-fg ansi-bold">,</span> label<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1053</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\indexes\base.py</span> in <span class="ansi-cyan-fg">get_loc</span><span class="ansi-blue-intense-fg ansi-bold">(self, key, method, tolerance)</span>
-<span class="ansi-green-fg">   3361</span>                 <span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_engine<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_loc<span class="ansi-yellow-intense-fg ansi-bold">(</span>casted_key<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   3362</span>             <span class="ansi-green-intense-fg ansi-bold">except</span> KeyError <span class="ansi-green-intense-fg ansi-bold">as</span> err<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 3363</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span><span class="ansi-green-intense-fg ansi-bold">raise</span> KeyError<span class="ansi-yellow-intense-fg ansi-bold">(</span>key<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">from</span> err
-<span class="ansi-green-fg">   3364</span> 
-<span class="ansi-green-fg">   3365</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> is_scalar<span class="ansi-yellow-intense-fg ansi-bold">(</span>key<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">and</span> isna<span class="ansi-yellow-intense-fg ansi-bold">(</span>key<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">and</span> <span class="ansi-green-intense-fg ansi-bold">not</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>hasnans<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-red-intense-fg ansi-bold">KeyError</span>: 0</pre>
-</div>
 </div>
 
 </div>
@@ -14847,7 +14788,7 @@ The above exception was the direct cause of the following exception:
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Interestingly, if we flip he hypothesis test and perform a left tailed test where:</p>
+<p>Interestingly, if we flip the hypothesis test and perform a left tailed test where:</p>
 <p>H<sub>o</sub>: P(actual_scoring_odds) &gt;= P(implied_scoring_odds)<br>
 H<sub>a</sub>: P(actual_scoring_odds) &lt; P(implied_scoring_odds)</p>
 <p>We get some interesting results...</p>
@@ -14856,7 +14797,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &lt; P(implied_scoring_odds)</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">results_left</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;player&#39;</span><span class="p">,</span><span class="s1">&#39;implied_odds&#39;</span><span class="p">,</span><span class="s1">&#39;actual_odds&#39;</span><span class="p">,</span><span class="s1">&#39;result_of_test&#39;</span><span class="p">])</span>
@@ -14871,7 +14812,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &lt; P(implied_scoring_odds)</p>
         <span class="n">results_left</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;player&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">player</span>
         <span class="n">results_left</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;implied_odds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">implied_odds</span>
         <span class="n">results_left</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;actual_odds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">actual_prob</span>
-        <span class="n">results_left</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;result_of_test&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_vals</span><span class="o">.</span><span class="n">pvalue</span>
+        <span class="n">results_left</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;pval&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_vals</span><span class="o">.</span><span class="n">pvalue</span>
         <span class="n">index</span> <span class="o">+=</span><span class="mi">1</span>
 <span class="n">results_left</span>
 </pre></div>
@@ -14889,7 +14830,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &lt; P(implied_scoring_odds)</p>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[16]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
 
 
 
@@ -14916,6 +14857,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &lt; P(implied_scoring_odds)</p>
       <th>implied_odds</th>
       <th>actual_odds</th>
       <th>result_of_test</th>
+      <th>pval</th>
     </tr>
   </thead>
   <tbody>
@@ -14923,14 +14865,16 @@ H<sub>a</sub>: P(actual_scoring_odds) &lt; P(implied_scoring_odds)</p>
       <th>0</th>
       <td>Mark Giordano</td>
       <td>0.117647</td>
-      <td>0.060606</td>
-      <td>0.099297</td>
+      <td>0.059701</td>
+      <td>NaN</td>
+      <td>0.092370</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Wayne Simmonds</td>
       <td>0.190476</td>
       <td>0.0</td>
+      <td>NaN</td>
       <td>0.064119</td>
     </tr>
     <tr>
@@ -14938,119 +14882,136 @@ H<sub>a</sub>: P(actual_scoring_odds) &lt; P(implied_scoring_odds)</p>
       <td>Luke Schenn</td>
       <td>0.1</td>
       <td>0.052632</td>
+      <td>NaN</td>
       <td>0.165587</td>
     </tr>
     <tr>
       <th>3</th>
       <td>TJ Brodie</td>
       <td>0.142857</td>
-      <td>0.045455</td>
-      <td>0.039224</td>
+      <td>0.044444</td>
+      <td>NaN</td>
+      <td>0.034970</td>
     </tr>
     <tr>
       <th>4</th>
       <td>John Tavares</td>
       <td>0.444444</td>
-      <td>0.369231</td>
-      <td>0.136374</td>
+      <td>0.363636</td>
+      <td>NaN</td>
+      <td>0.115070</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Calle Jarnkrok</td>
       <td>0.273973</td>
-      <td>0.254237</td>
-      <td>0.431643</td>
+      <td>0.25</td>
+      <td>NaN</td>
+      <td>0.401011</td>
     </tr>
     <tr>
       <th>6</th>
       <td>Justin Holl</td>
       <td>0.076923</td>
-      <td>0.030769</td>
-      <td>0.114763</td>
+      <td>0.030303</td>
+      <td>NaN</td>
+      <td>0.108650</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Morgan Rielly</td>
       <td>0.190476</td>
-      <td>0.039216</td>
-      <td>0.001745</td>
+      <td>0.057692</td>
+      <td>NaN</td>
+      <td>0.006330</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Jake McCabe</td>
       <td>0.117647</td>
-      <td>0.032787</td>
-      <td>0.020136</td>
+      <td>0.032258</td>
+      <td>NaN</td>
+      <td>0.018286</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Erik Gustafsson</td>
       <td>0.208333</td>
-      <td>0.076923</td>
-      <td>0.00372</td>
+      <td>0.075758</td>
+      <td>NaN</td>
+      <td>0.003167</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Alexander Kerfoot</td>
       <td>0.25974</td>
-      <td>0.090909</td>
-      <td>0.000552</td>
+      <td>0.089552</td>
+      <td>NaN</td>
+      <td>0.000446</td>
     </tr>
     <tr>
       <th>11</th>
       <td>William Nylander</td>
       <td>0.5</td>
-      <td>0.469697</td>
-      <td>0.356115</td>
+      <td>0.462687</td>
+      <td>NaN</td>
+      <td>0.312703</td>
     </tr>
     <tr>
       <th>12</th>
       <td>Sam Lafferty</td>
       <td>0.273973</td>
-      <td>0.157895</td>
-      <td>0.029786</td>
+      <td>0.155172</td>
+      <td>NaN</td>
+      <td>0.025248</td>
     </tr>
     <tr>
       <th>13</th>
       <td>Michael Bunting</td>
       <td>0.350877</td>
-      <td>0.242424</td>
-      <td>0.040135</td>
+      <td>0.238806</td>
+      <td>NaN</td>
+      <td>0.033586</td>
     </tr>
     <tr>
       <th>14</th>
       <td>Mitchell Marner</td>
       <td>0.392157</td>
-      <td>0.348485</td>
-      <td>0.276169</td>
+      <td>0.343284</td>
+      <td>NaN</td>
+      <td>0.245387</td>
     </tr>
     <tr>
       <th>15</th>
       <td>Noel Acciari</td>
       <td>0.227273</td>
-      <td>0.153846</td>
-      <td>0.099413</td>
+      <td>0.151515</td>
+      <td>NaN</td>
+      <td>0.089030</td>
     </tr>
     <tr>
       <th>16</th>
       <td>Zach Aston-Reese</td>
       <td>0.153846</td>
-      <td>0.081967</td>
-      <td>0.076614</td>
+      <td>0.080645</td>
+      <td>NaN</td>
+      <td>0.069789</td>
     </tr>
     <tr>
       <th>17</th>
       <td>Timothy Liljegren</td>
       <td>0.153846</td>
-      <td>0.075472</td>
-      <td>0.073842</td>
+      <td>0.074074</td>
+      <td>NaN</td>
+      <td>0.066810</td>
     </tr>
     <tr>
       <th>18</th>
       <td>David Kampf</td>
       <td>0.190476</td>
-      <td>0.106061</td>
-      <td>0.049041</td>
+      <td>0.104478</td>
+      <td>NaN</td>
+      <td>0.043845</td>
     </tr>
   </tbody>
 </table>
@@ -15072,10 +15033,10 @@ H<sub>a</sub>: P(actual_scoring_odds) &lt; P(implied_scoring_odds)</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results_left</span><span class="p">[</span><span class="n">results_left</span><span class="p">[</span><span class="s1">&#39;result_of_test&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">.05</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results_left</span><span class="p">[</span><span class="n">results_left</span><span class="p">[</span><span class="s1">&#39;pval&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">.05</span><span class="p">]</span>
 </pre></div>
 
      </div>
@@ -15091,7 +15052,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &lt; P(implied_scoring_odds)</p>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[24]:</div>
 
 
 
@@ -15118,6 +15079,7 @@ H<sub>a</sub>: P(actual_scoring_odds) &lt; P(implied_scoring_odds)</p>
       <th>implied_odds</th>
       <th>actual_odds</th>
       <th>result_of_test</th>
+      <th>pval</th>
     </tr>
   </thead>
   <tbody>
@@ -15125,57 +15087,65 @@ H<sub>a</sub>: P(actual_scoring_odds) &lt; P(implied_scoring_odds)</p>
       <th>3</th>
       <td>TJ Brodie</td>
       <td>0.142857</td>
-      <td>0.045455</td>
-      <td>0.039224</td>
+      <td>0.044444</td>
+      <td>NaN</td>
+      <td>0.034970</td>
     </tr>
     <tr>
       <th>7</th>
       <td>Morgan Rielly</td>
       <td>0.190476</td>
-      <td>0.039216</td>
-      <td>0.001745</td>
+      <td>0.057692</td>
+      <td>NaN</td>
+      <td>0.006330</td>
     </tr>
     <tr>
       <th>8</th>
       <td>Jake McCabe</td>
       <td>0.117647</td>
-      <td>0.032787</td>
-      <td>0.020136</td>
+      <td>0.032258</td>
+      <td>NaN</td>
+      <td>0.018286</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Erik Gustafsson</td>
       <td>0.208333</td>
-      <td>0.076923</td>
-      <td>0.00372</td>
+      <td>0.075758</td>
+      <td>NaN</td>
+      <td>0.003167</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Alexander Kerfoot</td>
       <td>0.25974</td>
-      <td>0.090909</td>
-      <td>0.000552</td>
+      <td>0.089552</td>
+      <td>NaN</td>
+      <td>0.000446</td>
     </tr>
     <tr>
       <th>12</th>
       <td>Sam Lafferty</td>
       <td>0.273973</td>
-      <td>0.157895</td>
-      <td>0.029786</td>
+      <td>0.155172</td>
+      <td>NaN</td>
+      <td>0.025248</td>
     </tr>
     <tr>
       <th>13</th>
       <td>Michael Bunting</td>
       <td>0.350877</td>
-      <td>0.242424</td>
-      <td>0.040135</td>
+      <td>0.238806</td>
+      <td>NaN</td>
+      <td>0.033586</td>
     </tr>
     <tr>
       <th>18</th>
       <td>David Kampf</td>
       <td>0.190476</td>
-      <td>0.106061</td>
-      <td>0.049041</td>
+      <td>0.104478</td>
+      <td>NaN</td>
+      <td>0.043845</td>
     </tr>
   </tbody>
 </table>
